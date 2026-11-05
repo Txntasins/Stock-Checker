@@ -16,7 +16,7 @@ if (!global.mongooseCache) global.mongooseCache = cached;
 
 export async function connectNoSQL() {
   if (!MONGODB_URI) {
-    throw new Error('กรุณาตั้งค่า MONGODB_URI ใน Environment Variables');
+    throw new Error('Setting MONGODB_URI in Environment Variables');
   }
   if (cached.conn) return cached.conn;
   if (!cached.promise) {

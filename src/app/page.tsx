@@ -39,14 +39,7 @@ interface AdminSession {
   unreadAlerts: number;
 }
 
-const INITIAL_ITEMS: StockItem[] = [
-  { id: 'itm-1', name: 'เมล็ดกาแฟคั่วกลาง (House Blend)', category: 'เครื่องดื่ม / วัตถุดิบชง', qty: 8, min: 3, unit: 'ถุง', updatedAt: '10 นาทีที่แล้ว', updatedBy: 'พนักงานหน้าร้าน' },
-  { id: 'itm-2', name: 'ผงมัทฉะเกรดพรีเมียม (Uji Matcha)', category: 'เครื่องดื่ม / วัตถุดิบชง', qty: 2, min: 3, unit: 'กระป๋อง', updatedAt: '25 นาทีที่แล้ว', updatedBy: 'พนักงานบาร์น้ำ' },
-  { id: 'itm-3', name: 'นมสดพาสเจอร์ไรส์ (Meiji 2L)', category: 'ของสด / นม', qty: 12, min: 5, unit: 'แกลลอน', updatedAt: '1 ชั่วโมงที่แล้ว', updatedBy: 'พนักงานบาร์น้ำ' },
-  { id: 'itm-4', name: 'นมโอ๊ต (Oat Milk Barista)', category: 'ของสด / นม', qty: 0, min: 4, unit: 'กล่อง', updatedAt: 'เมื่อสักครู่', updatedBy: 'พนักงานหน้าร้าน' },
-  { id: 'itm-5', name: 'ครัวซองต์เนยสดฝรั่งเศส', category: 'อาหาร / เบเกอรี่', qty: 15, min: 6, unit: 'ชิ้น', updatedAt: '2 ชั่วโมงที่แล้ว', updatedBy: 'พนักงานครัว' },
-  { id: 'itm-6', name: 'แก้วพลาสติกใส 16 oz พร้อมฝา', category: 'บรรจุภัณฑ์ / แก้ว', qty: 4, min: 5, unit: 'แถว', updatedAt: 'วันนี้ 14:20', updatedBy: 'พนักงานหน้าร้าน' }
-];
+const INITIAL_ITEMS: StockItem[] = [];
 
 function apiEndpoint(segment: string): string {
   return ['', 'api', segment].join('/');
@@ -72,7 +65,7 @@ export default function App() {
     email: '',
     name: '',
     lastReportSent: 'พร้อมส่งอัตโนมัติ',
-    nextReportDue: 'ทุก ๆ 3 วัน (09:00 น.)',
+    nextReportDue: 'ทุก ๆ 3 วัน (10:00 น.)',
     unreadAlerts: 0
   });
 
@@ -86,12 +79,12 @@ export default function App() {
   const [newItemName, setNewItemName] = useState('');
   const [newItemCategory, setNewItemCategory] = useState('เครื่องดื่ม / วัตถุดิบชง');
   const [newItemQty, setNewItemQty] = useState(10);
-  const [newItemUnit, setNewItemUnit] = useState('ถุง');
+  const [newItemUnit, setNewItemUnit] = useState('');
   const [newItemMin, setNewItemMin] = useState(3);
 
   // Modal & Toast States
   const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
-  const [selectedEmergencyId, setSelectedEmergencyId] = useState(INITIAL_ITEMS[0].id);
+  const [selectedEmergencyId, setSelectedEmergencyId] = useState('');
   const [emergencyNote, setEmergencyNote] = useState('');
   const [emergencySetZero, setEmergencySetZero] = useState(true);
   const [lastEmergencyTs, setLastEmergencyTs] = useState(0);
@@ -120,7 +113,7 @@ export default function App() {
 
       if (stockRes.ok) {
         const data = await stockRes.json();
-        if (Array.isArray(data.items) && data.items.length > 0) {
+        if (Array.isArray(data.items)) {
           setItems(
             data.items.map((doc: any) => ({
               id: String(doc._id || doc.id),
@@ -585,7 +578,7 @@ export default function App() {
                         maxLength={60}
                         value={newItemName}
                         onChange={(e) => setNewItemName(e.target.value)}
-                        placeholder="เช่น เมล็ดกาแฟ, นมโอ๊ต, ครัวซองต์"
+                        placeholder="ตัวอย่าง: เมล็ดกาแฟคั่วกลาง, นมโอ๊ต, ครัวซองต์"
                         className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                       />
                     </div>
