@@ -425,7 +425,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-xs text-slate-500 hidden sm:block">
-                ระบบเช็คสต็อกสินค้าและวัตถุดิบภายในร้าน
+                ระบบเช็คสต็อกสินค้าและว อื่น ๆ ภายในร้าน
               </p>
             </div>
           </div>
@@ -762,7 +762,7 @@ export default function App() {
 
           <div className="divide-y divide-slate-100">
             {filteredItems.length === 0 ? (
-              <div className="p-10 text-center space-y-1"><p className="text-sm font-medium text-slate-600">ยังไม่มีรายการสินค้าในสต็อก</p><p className="text-xs text-slate-400">เจ้าของร้านสามารถเข้าสู่ระบบที่แท็บ "เจ้าของร้าน (Admin)" เพื่อเพิ่มเมนูหรือรายการสินค้าใหม่ได้เลย</p></div>
+              <div className="p-10 text-center space-y-1"><p className="text-sm font-medium text-slate-600">ยังไม่มีรายการสินค้าในสต็อก</p><p className="text-xs text-slate-400">เจ้าของร้านสามารถเข้าสู่ระบบที่แท็บ "เจ้าของร้าน" เพื่อเพิ่มเมนูหรือรายการสินค้าใหม่ได้เลย</p></div>
             ) : (
               filteredItems.map((item) => {
                 const isOut = item.qty <= 0;
