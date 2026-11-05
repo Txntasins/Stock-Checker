@@ -591,8 +591,7 @@ export default function App() {
                       >
                         <option value="เครื่องดื่ม">เครื่องดื่ม</option>
                         <option value="อาหารทานเล่น">อาหารทานเล่น</option>
-                        <option value="น้ำแข็ง">น้ำแข็ง</option>
-                        <option value="ของใช้">ของใช้</option>
+                        <option value="อื่น ๆ">อื่น ๆ</option>
                       </select>
                     </div>
                     <div className="sm:col-span-2">
@@ -712,7 +711,7 @@ export default function App() {
                 { key: 'low', label: 'ใกล้หมด / หมดสต็อก' },
                 { key: 'เครื่องดื่ม', label: 'เครื่องดื่ม' },
                 { key: 'อาหารทานเล่น', label: 'อาหารทานเล่น' },
-                { key: 'น้ำแข็ง', label: 'น้ำแข็ง' }
+                { key: 'อื่น ๆ', label: 'อื่น ๆ' }
               ].map((tab) => (
                 <button
                   key={tab.key}
