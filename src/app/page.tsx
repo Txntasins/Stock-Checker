@@ -77,7 +77,7 @@ export default function App() {
 
   // Admin Form States
   const [newItemName, setNewItemName] = useState('');
-  const [newItemCategory, setNewItemCategory] = useState('เครื่องดื่ม / วัตถุดิบชง');
+  const [newItemCategory, setNewItemCategory] = useState('เครื่องดื่ม');
   const [newItemQty, setNewItemQty] = useState(10);
   const [newItemUnit, setNewItemUnit] = useState('');
   const [newItemMin, setNewItemMin] = useState(3);
@@ -347,7 +347,7 @@ export default function App() {
       setItems((prev) =>
         prev.map((i) =>
           i.id === target.id
-            ? { ...i, qty: 0, updatedAt: nowLabel, updatedBy: `${actor} (แจ้งของหมดด่วน)` }
+            ? { ...i, qty: 0, updatedAt: nowLabel, updatedBy: `${actor} (แจ้งของหมด)` }
             : i
         )
       );
@@ -374,12 +374,12 @@ export default function App() {
         })
       });
       if (res.ok) {
-        triggerToast(`ส่งอีเมลแจ้งเตือนของหมดด่วน "${target.name}" ไปยังเจ้าของร้านแล้ว!`, 'emergency');
+        triggerToast(`ส่งอีเมลแจ้งเตือนของหมด "${target.name}" ไปยังเจ้าของร้านแล้ว!`, 'emergency');
         return;
       }
     } catch (err) {}
 
-    triggerToast(`แจ้งเตือนของหมดด่วน "${target.name}" ไปยังเจ้าของร้านทันทีแล้ว!`, 'emergency');
+    triggerToast(`แจ้งเตือนของหมด "${target.name}" ไปยังเจ้าของร้านทันทีแล้ว!`, 'emergency');
   };
 
   // Trigger 3-Day Email Report Immediately
@@ -455,7 +455,7 @@ export default function App() {
               }`}
             >
               <UserCheck className="w-3.5 h-3.5" />
-              <span>เจ้าของร้าน (Admin)</span>
+              <span>เจ้าของร้าน</span>
               {admin.unreadAlerts > 0 && (
                 <span className="-top-1 -right-1 px-1.5 py-0.2 rounded-full bg-rose-600 text-white text-[10px] font-bold">
                   {admin.unreadAlerts}
@@ -476,7 +476,7 @@ export default function App() {
                 roleView === 'admin' ? 'bg-emerald-700' : 'bg-slate-900'
               }`}
             >
-              {roleView === 'staff' ? 'สำหรับพนักงานหน้าร้าน' : 'สำหรับเจ้าของร้าน (Admin)'}
+              {roleView === 'staff' ? 'สำหรับพนักงานหน้าร้าน' : 'สำหรับเจ้าของร้าน'}
             </span>
             <h2 className="text-base sm:text-lg font-semibold text-slate-900">
               {roleView === 'staff'
@@ -499,7 +499,7 @@ export default function App() {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs sm:text-sm shadow-sm transition-all shrink-0 self-start sm:self-center"
           >
             <AlertTriangle className="w-4 h-4" />
-            <span>ปุ่มฉุกเฉิน: แจ้งของหมดด่วน</span>
+            <span>ปุ่มฉุกเฉิน: แจ้งของหมด</span>
           </button>
         </section>
 
@@ -578,7 +578,7 @@ export default function App() {
                         maxLength={60}
                         value={newItemName}
                         onChange={(e) => setNewItemName(e.target.value)}
-                        placeholder="ตัวอย่าง: เมล็ดกาแฟคั่วกลาง, นมโอ๊ต, ครัวซองต์"
+                        placeholder="ตัวอย่าง: Coke Singha Leo Ice"
                         className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                       />
                     </div>
@@ -589,10 +589,10 @@ export default function App() {
                         onChange={(e) => setNewItemCategory(e.target.value)}
                         className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-900"
                       >
-                        <option value="เครื่องดื่ม / วัตถุดิบชง">เครื่องดื่ม / วัตถุดิบชง</option>
-                        <option value="อาหาร / เบเกอรี่">อาหาร / เบเกอรี่</option>
-                        <option value="ของสด / นม">ของสด / นม</option>
-                        <option value="บรรจุภัณฑ์ / แก้ว">บรรจุภัณฑ์ / แก้ว</option>
+                        <option value="เครื่องดื่ม">เครื่องดื่ม</option>
+                        <option value="อาหารทานเล่น">อาหารทานเล่น</option>
+                        <option value="น้ำแข็ง">น้ำแข็ง</option>
+                        <option value="ของใช้">ของใช้</option>
                       </select>
                     </div>
                     <div className="sm:col-span-2">
@@ -615,6 +615,7 @@ export default function App() {
                         maxLength={20}
                         value={newItemUnit}
                         onChange={(e) => setNewItemUnit(e.target.value)}
+                        placeholder="ตัวอย่าง: ถุง, กล่อง, ชิ้น"
                         className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900"
                       />
                     </div>
@@ -709,9 +710,9 @@ export default function App() {
               {[
                 { key: 'all', label: 'ทั้งหมด' },
                 { key: 'low', label: 'ใกล้หมด / หมดสต็อก' },
-                { key: 'เครื่องดื่ม / วัตถุดิบชง', label: 'เครื่องดื่ม' },
-                { key: 'อาหาร / เบเกอรี่', label: 'อาหาร/เบเกอรี่' },
-                { key: 'ของสด / นม', label: 'ของสด/นม' }
+                { key: 'เครื่องดื่ม', label: 'เครื่องดื่ม' },
+                { key: 'อาหารทานเล่น', label: 'อาหารทานเล่น' },
+                { key: 'น้ำแข็ง', label: 'น้ำแข็ง' }
               ].map((tab) => (
                 <button
                   key={tab.key}
@@ -762,7 +763,7 @@ export default function App() {
 
           <div className="divide-y divide-slate-100">
             {filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-sm text-slate-400">ไม่พบรายการสินค้าที่ค้นหา</div>
+              <div className="p-10 text-center space-y-1"><p className="text-sm font-medium text-slate-600">ยังไม่มีรายการสินค้าในสต็อก</p><p className="text-xs text-slate-400">เจ้าของร้านสามารถเข้าสู่ระบบที่แท็บ "เจ้าของร้าน (Admin)" เพื่อเพิ่มเมนูหรือรายการสินค้าใหม่ได้เลย</p></div>
             ) : (
               filteredItems.map((item) => {
                 const isOut = item.qty <= 0;
@@ -836,7 +837,7 @@ export default function App() {
                         }}
                         className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-medium transition-all shrink-0"
                       >
-                        🚨 ของหมดด่วน
+                        🚨 ของหมด!!
                       </button>
 
                       {roleView === 'admin' && admin.isLoggedIn && (
@@ -891,11 +892,15 @@ export default function App() {
                   onChange={(e) => setSelectedEmergencyId(e.target.value)}
                   className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rose-600"
                 >
-                  {items.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name} (คงเหลือ: {item.qty} {item.unit})
-                    </option>
-                  ))}
+                  {items.length === 0 ? (
+                    <option value="">-- ยังไม่มีรายการสินค้าในระบบ --</option>
+                  ) : (
+                    items.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name} (คงเหลือ: {item.qty} {item.unit})
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
               <div>
@@ -905,7 +910,7 @@ export default function App() {
                   maxLength={150}
                   value={emergencyNote}
                   onChange={(e) => setEmergencyNote(e.target.value)}
-                  placeholder="เช่น ลูกค้าเหมาออเดอร์ใหญ่ ของหมดเกลี้ยง ต้องใช้พรุ่งนี้เช้าด่วน"
+                  placeholder="เช่น ลูกค้าเหมาออเดอร์ใหญ่ ของหมดเกลี้ยง ต้องใช้พรุ่งนี้ด่วน"
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-rose-600"
                 />
               </div>
@@ -962,12 +967,16 @@ export default function App() {
               </div>
               <div className="space-y-1.5">
                 <p className="font-semibold text-slate-900">รายการที่ของหมดหรือใกล้หมด:</p>
-                {items.filter((i) => i.qty <= i.min).map((i) => (
-                  <div key={i.id} className="flex justify-between py-1 border-b border-slate-200/60">
-                    <span>{i.qty <= 0 ? '🔴 [หมดสต็อก]' : '🟡 [ใกล้หมด]'} {i.name}</span>
-                    <span className="font-semibold">เหลือ {i.qty} {i.unit} (ขั้นต่ำ {i.min})</span>
-                  </div>
-                ))}
+                {items.filter((i) => i.qty <= i.min).length === 0 ? (
+                  <p className="text-slate-500 py-1">ตัวอย่าง: 🔴 [หมดสต็อก] ชีสบอล — เหลือ 0 แพ็ค (ส่งทุก ๆ 3 วัน เวลา 10:00 น.)</p>
+                ) : (
+                  items.filter((i) => i.qty <= i.min).map((i) => (
+                    <div key={i.id} className="flex justify-between py-1 border-b border-slate-200/60">
+                      <span>{i.qty <= 0 ? '🔴 [หมดสต็อก]' : '🟡 [ใกล้หมด]'} {i.name}</span>
+                      <span className="font-semibold">เหลือ {i.qty} {i.unit} (ขั้นต่ำ {i.min})</span>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
             <div className="flex justify-end">

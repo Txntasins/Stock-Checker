@@ -13,3 +13,14 @@ const StockItemSchema = new Schema(
 );
 
 export const StockItemModel = models.StockItem || model('StockItem', StockItemSchema);
+
+const AdminRecipientSchema = new Schema(
+  {
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    name: { type: String, default: 'เจ้าของร้าน' },
+    lastLoginAt: { type: Date, default: Date.now }
+  },
+  { timestamps: true, collection: 'admin_recipients' }
+);
+
+export const AdminRecipientModel = models.AdminRecipient || model('AdminRecipient', AdminRecipientSchema);

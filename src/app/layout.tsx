@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'MinimalStock — ระบบเช็คสต็อกร้านอาหารและเครื่องดื่ม',
-  description: 'ระบบเช็คสต็อกสินค้าและวัตถุดิบภายในร้าน'
+  description: 'ระบบเช็คสต็อกสินค้าและ อื่น ๆ ภายในร้าน'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
