@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions, isOwnerEmail } from '@/lib/auth';
+import { authOptions } from '@/lib/auth';
 import { connectNoSQL } from '@/lib/mongodb';
 import { StockItemModel } from '@/models/StockItem';
 import { AdminCreateItemSchema, StaffUpdateStockSchema, sanitizeString } from '@/lib/security';
@@ -18,7 +18,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !isOwnerEmail(session.user?.email)) {
+    if (!session || !session.user?.email) {
       return NextResponse.json({ error: 'เฉพาะเจ้าของร้านที่ล็อกอินด้วย Google เท่านั้น' }, { status: 401 });
     }
 
@@ -69,7 +69,7 @@ export async function PATCH(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !isOwnerEmail(session.user?.email)) {
+    if (!session || !session.user?.email) {
       return NextResponse.json({ error: 'เฉพาะเจ้าของร้านเท่านั้น' }, { status: 401 });
     }
 
