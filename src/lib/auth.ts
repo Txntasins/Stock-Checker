@@ -3,11 +3,20 @@ import GoogleProvider from 'next-auth/providers/google';
 import { connectNoSQL } from '@/lib/mongodb';
 import { AdminRecipientModel } from '@/models/StockItem';
 
+export function isOwnerEmail(email?: string | null): boolean {
+  return Boolean(email);
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      authorization: {
+        params: {
+          prompt: 'select_account'
+        }
+      }
     })
   ],
   secret: process.env.NEXTAUTH_SECRET,
